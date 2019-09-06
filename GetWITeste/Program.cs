@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GetWITeste.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace GetWITeste
 {
@@ -6,7 +8,13 @@ namespace GetWITeste
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            IServiceCollection services = new ServiceCollection();
+            Startup startup = new Startup();
+            startup.ConfigureServices(services);
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
+
+            var app = serviceProvider.GetService<IApplicationService>();
+            app.Startup();
         }
     }
 }
