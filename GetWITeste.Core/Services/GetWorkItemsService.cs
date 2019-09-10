@@ -27,7 +27,25 @@ namespace GetWITeste.Core.Services
 
         private void ObterWorkItems()
         {
-            // Recupera os work items no azure devops e grava no banco de dados.
+            // Recupera os últimos work items de um projeto específico no azure devops e grava no banco de dados.
+            var ultimoId = _repository.ObterUltimoIdWorkItem();
+
+            var workItens = _azureDevOpsService.ObterWorkItems(ultimoId);
+
+            foreach(var item in workItens)
+            {
+                var workItem = new WorkItems
+                {
+                    Id = item.Id,
+                    Tipo = item.Tipo,
+                    Titulo = item.Titulo,
+                    DataCriacao = item.DataCriacao
+                };
+
+                _repository.IncluirWorkItem(workItem);
+            }
+
+            var works = _repository.ListarWorkitems();
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿using GetWITeste.Core.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace GetWITeste.Core.Interfaces
 {
     public interface IAzureDevOpsService
     {
-        WorkItems ObterWorkItems();
+        List<WorkItems> ObterWorkItems(int ultimoId);
     }
 }

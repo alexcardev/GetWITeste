@@ -1,10 +1,12 @@
-﻿using GetWITeste.Core.Entities;
+﻿using Dapper;
+using GetWITeste.Core.Entities;
 using GetWITeste.Core.Interfaces;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GetWITeste.Infra.Data
 {
@@ -41,19 +43,42 @@ namespace GetWITeste.Infra.Data
                 _connection.Close();
         }
 
-        public void InserirWorkItem(WorkItems workItems)
+        public void IncluirWorkItem(WorkItems entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection dbConnection = Connection)
+            {
+                var storedProcedure = "[WorkItemsTeste].[dbo].[IncluirWorkItem]";
+                var param = new DynamicParameters();
+
+                param.Add("@Id", entity.Id);
+                param.Add("@Tipo", entity.Tipo);
+                param.Add("@Titulo", entity.Titulo);
+                param.Add("@Data", entity.DataCriacao);
+
+                dbConnection.Execute(storedProcedure, param, null, null, CommandType.StoredProcedure);
+            }
         }
 
         public List<WorkItems> ListarWorkitems()
         {
-            throw new NotImplementedException();
+            using (IDbConnection dbConnection = Connection)
+            {
+                var storedProcedure = "[WorkItemsTeste].[dbo].[ListarWorkItems]";
+                var param = new DynamicParameters();
+
+                return dbConnection.Query<WorkItems>(storedProcedure, param, null, false, 0, CommandType.StoredProcedure).ToList();
+            }
         }
 
-        public List<WorkItems> ListarWorkitemsPorTipo()
+        public int ObterUltimoIdWorkItem()
         {
-            throw new NotImplementedException();
+            using (IDbConnection dbConnection = Connection)
+            {
+                var storedProcedure = "[WorkItemsTeste].[dbo].[ObterUltimoIdWorkItem]";
+                var param = new DynamicParameters();
+
+                return dbConnection.ExecuteScalar<int>(storedProcedure, param, null, null, CommandType.StoredProcedure);
+            }
         }
 
         public void AddLogAnalise(LogAnalise entity)

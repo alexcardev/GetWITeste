@@ -7,9 +7,10 @@ namespace GetWITeste.Core.Interfaces
 {
     public interface IDapperRepository
     {
-        void InserirWorkItem(WorkItems workItems);
+        void IncluirWorkItem(WorkItems workItems);
         List<WorkItems> ListarWorkitems();
-        List<WorkItems> ListarWorkitemsPorTipo();
+        int ObterUltimoIdWorkItem();
         void AddLogAnalise(LogAnalise entity);
+        void Dispose();
     }
 }
