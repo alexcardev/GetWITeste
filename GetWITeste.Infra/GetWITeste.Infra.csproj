@@ -20,4 +20,8 @@
     <ProjectReference Include="..\GetWITeste.Core\GetWITeste.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SqlScript\" />
+  </ItemGroup>
+
 </Project>
