@@ -57,7 +57,7 @@ namespace GetWITeste.Infra.Api
                     }
                     int[] arr = list.ToArray();
 
-                    string[] fields = new string[4];
+                    string[] fields = new string[5];
                     fields[0] = "System.Id";
                     fields[1] = "System.Title";
                     fields[2] = "System.WorkItemType";

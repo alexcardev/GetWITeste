@@ -25,6 +25,15 @@ CREATE TABLE [dbo].[WorkItems] (
 
 GO
 
+CREATE TABLE [dbo].[LogAnalise] (
+    [Id]       INT           IDENTITY (1, 1) NOT NULL,
+    [TipoLog]  INT           NOT NULL,
+    [Mensagem] VARCHAR (MAX) NOT NULL,
+    [Data]     DATETIME      NOT NULL
+);
+
+GO
+
 CREATE PROCEDURE [dbo].[IncluirWorkItem]
 	@Id int,
 	@Tipo varchar(50),
@@ -61,5 +70,15 @@ BEGIN
 
 SELECT TOP 1 Id FROM dbo.WorkItems order by Id desc;
 
+END
+GO
+
+CREATE PROCEDURE [dbo].[IncluirLogAnalise]
+	@TipoLog int,
+	@Mensagem varchar(MAX),
+	@Data datetime
+AS
+BEGIN
+	INSERT INTO LogAnalise (TipoLog, Mensagem, Data) VALUES (@TipoLog, @Mensagem, @Data)
 END
 GO

@@ -83,7 +83,17 @@ namespace GetWITeste.Infra.Data
 
         public void AddLogAnalise(LogAnalise entity)
         {
-            throw new NotImplementedException();
+            using (IDbConnection dbConnection = Connection)
+            {
+                var storedProcedure = "[WorkItemsTeste].[dbo].[IncluirLogAnalise]";
+                var param = new DynamicParameters();
+
+                param.Add("@TipoLog", entity.TipoLog);
+                param.Add("@Mensagem", entity.Mensagem);
+                param.Add("@Data", entity.Data);
+
+                dbConnection.Execute(storedProcedure, param, null, null, CommandType.StoredProcedure);
+            }
         }
     }
 }

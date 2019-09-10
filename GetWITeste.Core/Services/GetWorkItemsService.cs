@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GetWITeste.Core.Entities;
 using GetWITeste.Core.Interfaces;
 using Microsoft.Extensions.Options;
@@ -28,7 +29,22 @@ namespace GetWITeste.Core.Services
 
         public void Processar()
         {
-            ObterWorkItems();
+            try
+            {
+                ObterWorkItems();
+            }
+            catch (Exception ex)
+            {
+                var logAnalise = new LogAnalise
+                {
+                    TipoLog = 1,
+                    Mensagem = ex.Message,
+                    Data = DateTime.Now
+                };
+
+                _repository.AddLogAnalise(logAnalise);
+            }
+            
         }
 
         private void ObterWorkItems()
