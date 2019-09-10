@@ -53,7 +53,7 @@ namespace GetWITeste.Infra.Data
                 param.Add("@Id", entity.Id);
                 param.Add("@Tipo", entity.Tipo);
                 param.Add("@Titulo", entity.Titulo);
-                param.Add("@Data", entity.DataCriacao);
+                param.Add("@Data", entity.Data);
 
                 dbConnection.Execute(storedProcedure, param, null, null, CommandType.StoredProcedure);
             }

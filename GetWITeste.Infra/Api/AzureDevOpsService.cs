@@ -74,7 +74,7 @@ namespace GetWITeste.Infra.Api
                             Id = workItem.Id,
                             Titulo = workItem.Fields["System.Title"].ToString(),
                             Tipo = workItem.Fields["System.WorkItemType"].ToString(),
-                            DataCriacao = (DateTime)workItem.Fields["System.ChangedDate"]
+                            Data = (DateTime)workItem.Fields["System.ChangedDate"]
                         };
 
                         WItems.Add(WItem);
